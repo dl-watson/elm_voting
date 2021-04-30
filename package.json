@@ -1,0 +1,24 @@
+{
+  "name": "elm_voting",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "elm-live": "elm-live src/Main.elm --open -- --output=elm.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dl-watson/elm_voting.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dl-watson/elm_voting/issues"
+  },
+  "homepage": "https://github.com/dl-watson/elm_voting#readme",
+  "devDependencies": {
+    "elm-live": "^4.0.2"
+  }
+}
