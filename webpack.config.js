@@ -12,9 +12,6 @@ module.exports = {
   },
   devServer: {
     port: 7890,
-    proxy: {
-      "/socket.io": "http://localhost:7890",
-    },
   },
   plugins: [new CleanWebpackPlugin()],
   module: {
