@@ -1,24 +1,17 @@
 const webpack = require("webpack");
-const HtmlPlugin = require("html-webpack-plugin");
-const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const path = require("path");
+const HtmlWebpackPlugin = require("html-webpack-plugin");
+const { CleanWebpackPlugin } = require("clean-webpack-plugin");
+const { Socket } = require("dgram");
+
+const outputDirectory = "dist";
 
 module.exports = {
-  entry: ["babel-polyfill", "../index.js"],
-  devtool: "inline-source-map",
-  mode: "development",
+  entry: ["babel-polyfill", "./client/index.js"],
   output: {
-    publicPath: "/",
-    path: path.join(__dirname, "dist"),
+    path: path.join(__dirname, outputDirectory),
     filename: "bundle.js",
   },
-  devServer: {
-    publicPath: "/",
-    port: 7890,
-    open: true,
-    hotOnly: true,
-  },
-  plugins: [new CleanWebpackPlugin(), new webpack.HotModuleReplacementPlugin()],
   module: {
     rules: [
       {
@@ -31,13 +24,10 @@ module.exports = {
       {
         test: /\.elm$/,
         exclude: [/elm-stuff/, /node_modules/],
-
-        use: [
-          {
-            loader: "elm-webpack-loader",
-            options: {},
-          },
-        ],
+        use: {
+          loader: "elm-webpack-loader",
+          options: {},
+        },
       },
       {
         test: /\.html$/,
@@ -48,7 +38,7 @@ module.exports = {
         },
       },
       {
-        test: /\.(jpeg|jpg|png|svg)$/,
+        test: /\.(png|woff|woff2|eot|ttf|svg)$/,
         use: {
           loader: "url-loader",
           options: { limit: 100000 },
@@ -56,4 +46,16 @@ module.exports = {
       },
     ],
   },
+  devServer: {
+    hot: true,
+    open: true,
+    port: 7891,
+    proxy: {
+      "/socket.io": {
+        target: "http://localhost:7890",
+        ws: true,
+      },
+    },
+  },
+  plugins: [new CleanWebpackPlugin()],
 };
