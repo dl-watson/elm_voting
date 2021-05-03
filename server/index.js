@@ -2,6 +2,7 @@ const express = require("express");
 const app = express();
 
 const server = require("http").createServer(app);
+
 const io = require("socket.io")(server);
 
 app.use(express.static("dist"));
@@ -12,6 +13,6 @@ io.on("connection", function (socket) {
   });
 });
 
-server.listen(7891, function () {
-  console.log("listening on *:7891");
+server.listen(7890, function () {
+  console.log("listening on *:7890");
 });

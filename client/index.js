@@ -1,6 +1,6 @@
 import "./index.html";
 
-import { Elm } from "../Main.elm";
+import { Elm } from "./src/Main.elm";
 
 const app = Elm.Main.init({
   node: document.querySelector("#root"),
@@ -17,6 +17,6 @@ app.ports.sendMessage.subscribe(function (message) {
 
 // When a message comes into our WebSocket, we pass the message along
 // to the `messageReceiver` port.
-socket.addEventListener("message", function (event) {
-  app.ports.messageReceiver.send(event.data);
+socket.on("chat message", function (message) {
+  app.ports.messageReceiver.send(message);
 });
