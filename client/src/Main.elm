@@ -5,6 +5,7 @@ import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
 import Json.Decode as JD
+import Json.Decode exposing (null)
 
 
 main : Program () Model Msg
@@ -100,8 +101,6 @@ view : Model -> Html Msg
 view model =
     div []
         [ h1 [] [ text "Echo Chat" ]
-        , ul []
-            (List.map (\msg -> li [] [ text msg ]) model.messages)
         , input
             [ type_ "text"
             , placeholder "Draft"
@@ -111,6 +110,8 @@ view model =
             ]
             []
         , button [ onClick Send ] [ text "Send" ]
+        , ul []
+            (List.map (\msg -> li [] [ text msg ]) model.messages)
         ]
 
 
