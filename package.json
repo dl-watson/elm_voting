@@ -2,12 +2,11 @@
   "name": "elm_voting",
   "version": "1.0.0",
   "description": "",
-  "main": "src/server/index.js",
+  "main": "server/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "client": "webpack serve --devtool inline-source-map --hot",
-    "server": "nodemon src/server/index.js",
-    "elm:live": "elm-live src/Main.elm --open -- --output=elm.js",
+    "client": "webpack serve --mode development --devtool inline-source-map --hot",
+    "server": "nodemon server/index.js",
+    "elm:make": "elm make client/src/Main.elm --optimize --output=elm.js",
     "both": "concurrently \"npm run server\" \"npm run client\""
   },
   "repository": {
@@ -34,7 +33,6 @@
     "concurrently": "^6.0.2",
     "elm": "^0.19.1-5",
     "elm-format": "^0.8.5",
-    "elm-live": "^3.4.1",
     "elm-webpack-loader": "^8.0.0",
     "file-loader": "^6.2.0",
     "html-webpack-plugin": "^5.3.1",

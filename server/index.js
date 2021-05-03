@@ -1,8 +1,8 @@
 const express = require("express");
 const app = express();
 
-const http = require("http").createServer(app);
-const io = require("socket.io")(http);
+const server = require("http").createServer(app);
+const io = require("socket.io")(server);
 
 app.use(express.static("dist"));
 
@@ -12,6 +12,6 @@ io.on("connection", function (socket) {
   });
 });
 
-http.listen(7891, function () {
+server.listen(7891, function () {
   console.log("listening on *:7891");
 });

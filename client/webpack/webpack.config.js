@@ -1,19 +1,24 @@
+const webpack = require("webpack");
 const HtmlPlugin = require("html-webpack-plugin");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const path = require("path");
 
 module.exports = {
-  entry: "./src/client/index.js",
+  entry: ["babel-polyfill", "../index.js"],
   devtool: "inline-source-map",
   mode: "development",
   output: {
     publicPath: "/",
+    path: path.join(__dirname, "dist"),
     filename: "bundle.js",
   },
   devServer: {
+    publicPath: "/",
     port: 7890,
+    open: true,
+    hotOnly: true,
   },
-  plugins: [new CleanWebpackPlugin()],
+  plugins: [new CleanWebpackPlugin(), new webpack.HotModuleReplacementPlugin()],
   module: {
     rules: [
       {
@@ -26,10 +31,13 @@ module.exports = {
       {
         test: /\.elm$/,
         exclude: [/elm-stuff/, /node_modules/],
-        use: {
-          loader: "elm-webpack-loader",
-          options: {},
-        },
+
+        use: [
+          {
+            loader: "elm-webpack-loader",
+            options: {},
+          },
+        ],
       },
       {
         test: /\.html$/,
