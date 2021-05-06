@@ -99,7 +99,7 @@ subscriptions _ =
 
 view : Model -> Html Msg
 view model =
-    div []
+    div [ class "container" ]
         [ h1 [] [ text "Echo Chat" ]
         , input
             [ type_ "text"
@@ -110,7 +110,7 @@ view model =
             ]
             []
         , button [ onClick Send ] [ text "Send" ]
-        , ul []
+        , ul [ class "message-list" ]
             (List.map (\msg -> li [] [ text msg ]) model.messages)
         ]
 

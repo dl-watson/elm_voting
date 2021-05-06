@@ -2,7 +2,6 @@ const webpack = require("webpack");
 const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
-const { Socket } = require("dgram");
 
 module.exports = {
   entry: ["babel-polyfill", "./client/index.js"],
@@ -36,7 +35,9 @@ module.exports = {
         exclude: [/elm-stuff/, /node_modules/],
         use: {
           loader: "elm-webpack-loader",
-          options: {},
+          options: {
+            debug: true,
+          },
         },
       },
       {
@@ -56,9 +57,7 @@ module.exports = {
       },
       {
         test: /\.css$/,
-        use: {
-          loader: "style-loader",
-        },
+        use: ["style-loader", "css-loader"],
       },
     ],
   },
